@@ -1,0 +1,29 @@
+services:
+
+  rabbitmq:
+    image:  "rabbitmq:3-management"
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "status" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_interval: 2s
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: email-ms
+    ports:
+      - "8080:8080"
+    env_file:
+      - .app_env
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: on-failure
