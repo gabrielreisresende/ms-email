@@ -1,5 +1,7 @@
 # Email Sending Microservice
 
+[Leia esta página em Português](https://github.com/gabrielreisresende/ms-email/blob/main/README-pt.md)
+
 ## Description
 This repository is an asynchronous email sending microservice.
 This service consumes a RabbitMQ queue and uses Gmail's SMTP service to send emails.
